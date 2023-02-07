@@ -17,8 +17,7 @@ export function FoodBox({ food, apagarComida, index }) {
             apagarComida(index);
           }}
         >
-          {' '}
-          Delete{' '}
+          Delete
         </Button>
       </Card>
     </Col>
