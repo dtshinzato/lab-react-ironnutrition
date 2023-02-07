@@ -47,10 +47,7 @@ function App() {
       <Divider>Food List</Divider>
       <Row style={{ width: '100%', justifyContent: 'center' }}>
         {comidasFiltradas.map((currentFood, index) => (
-          <FoodBox
-            food={currentFood}
-            apagarComida={() => apagarComida(index)}
-          />
+          <FoodBox food={currentFood} apagarComida={apagarComida} />
         ))}
 
         {/* Render the list of Food Box components here */}
