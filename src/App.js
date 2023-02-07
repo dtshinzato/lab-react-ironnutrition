@@ -1,23 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import foods from './foods.json';
+import { Row, Divider, Button } from 'antd';
+import { FoodBox } from './Components/FoodBox';
+import { AddFoodForm } from './Components/AddFoodForm';
+import { useState } from 'react';
+import { Search } from './Components/Search';
 
 function App() {
+  const [comidas, setComidas] = useState(foods);
+  const [comidasFiltradas, setComidasFiltradas] = useState(foods);
+  // const [procura, setProcura] = useState('');
+
+  function adicionarComida(comida) {
+    setComidas([...comidas, comida]);
+    setComidasFiltradas([...comidasFiltradas, comida]);
+  }
+
+  function apagarComida(index) {
+    const clone = [...comidas];
+    clone.splice(index, 1);
+    setComidas(clone);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* Display Add Food component here */}
+      <AddFoodForm adicionarComida={adicionarComida} />
+      <Button> Hide Form / Add New Food </Button>
+      {/* Display Search component here */}
+      <Search />
+      {/* {comidas
+        .filter((comidas) => {
+          if (setProcura === '') {
+            return comidas;
+          } else if (
+            comidas.name.toLowerCase().includes(procura.toLowerCase())
+          ) {
+            return comidasFiltradas;
+          }
+        })
+        .map((comida, key) => {
+          return (
+            <div key={key}>
+              <p>{comida.name}</p>
+            </div>
+          );
+        })} */}
+      <Divider>Food List</Divider>
+      <Row style={{ width: '100%', justifyContent: 'center' }}>
+        {comidasFiltradas.map((currentFood, index) => (
+          <FoodBox
+            food={currentFood}
+            apagarComida={() => apagarComida(index)}
+          />
+        ))}
+
+        {/* Render the list of Food Box components here */}
+      </Row>
     </div>
   );
 }
